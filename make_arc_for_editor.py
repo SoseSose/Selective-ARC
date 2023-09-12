@@ -4,7 +4,7 @@ import glob
 import json
 import copy
 
-base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\training"
+base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\training_origin"
 file_list = glob.glob(base_path +"\\*.json")
 
 base_max = novel_max = num_upper_max_size = 0
@@ -29,8 +29,8 @@ for file in file_list:
         id_index += 1
         json_load["test"][i] = dict(sorted(json_load["test"][i].items()))
         
-        for j  in range(5):
-            one_train = copy.deepcopy(json_load["test"][5 * i + j])
+        for j  in range(4):
+            one_train = copy.deepcopy(json_load["test"][4 * i + j])
             try:
                 one_train["input"] = one_train["output"]
             except KeyError:
@@ -54,9 +54,23 @@ for file in file_list:
     
 
     # print(json_load)
-    with open(base_path+"for_arc_editor\\"+"\\"+path.stem+".json", 'w') as f:
+    with open(base_path+"2\\"+path.stem+".json", 'w') as f:
         json.dump(json_load, f, separators=(',', ':'))
     
     # break
 
 #%%
+
+#%%
+import os
+add = glob.glob(base_path +"training_add\\*.json")
+print(len(add))
+for add_fn in add:
+    add_fn = Path(add_fn)
+    add_fn = add_fn.stem+".json"
+    print(base_path+"training_origin\\"+add_fn)
+    print(os.path.exists(base_path+"training_origin\\"+add_fn))
+    os.remove(base_path+"training_origin\\"+add_fn)
+
+origin = glob.glob(base_path +"training_origin\\*.json")
+print(len(origin))
