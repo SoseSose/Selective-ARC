@@ -6,7 +6,7 @@ import numpy as np
 import pyperclip
 
 #todo same original arc
-#
+#todo check candidate length
 
 
 def candidate_is_not_same():
