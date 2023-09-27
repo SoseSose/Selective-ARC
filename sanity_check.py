@@ -60,3 +60,30 @@ def candidate_is_not_same():
 
 
 candidate_is_not_same()
+
+#%%
+def check_original_n_add_are_equal():
+    def check_func(original_dir, add_dir):
+        original_files = sorted(glob.glob(original_dir+"/*.json"))
+        add_files = sorted(glob.glob(original_dir+"/*.json"))
+        # for file_num, file in enumerate(files):
+
+
+    check_func(original_dir="training_origin", add_dir="training_add")
+    check_func(original_dir="training_origin", add_dir="training_add")
+
+
+candidate_is_not_same()
+#%%
+def check_original_n_add_are_equal():
+    def check_func(original_dir, add_dir):
+        original_files = sorted(glob.glob(original_dir+"/*.json"))
+        add_files = sorted(glob.glob(original_dir+"/*.json"))
+        # for file_num, file in enumerate(files):
+
+
+    check_func(original_dir="training_origin", add_dir="training_add")
+    check_func(original_dir="training_origin", add_dir="training_add")
+
+
+candidate_is_not_same()
