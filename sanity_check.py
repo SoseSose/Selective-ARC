@@ -62,18 +62,26 @@ def candidate_is_not_same():
 candidate_is_not_same()
 
 #%%
-def check_original_n_add_are_equal():
-    def check_func(original_dir, add_dir):
-        original_files = sorted(glob.glob(original_dir+"/*.json"))
-        add_files = sorted(glob.glob(original_dir+"/*.json"))
-        # for file_num, file in enumerate(files):
+def move_training_add_8():
+    target_folder = "training_add"
+    files = sorted(glob.glob(target_folder+"/*.json"))
+    for file in files:
 
+        with open(file, "r") as f:
+            task = json.load(f)
+        print(len(task["test"]))
+        print(len(task["test"][:5]))
+        task["test"] = task["test"][:5]
+        # break
+        print("training_add_8"+file.removeprefix(target_folder))
+        with open("training_add_8"+file.removeprefix(target_folder), 'w') as f:
+            json.dump(task, f, separators=(',', ':'))
+    
+        
+    #     test_tasks = [task["test"][idx*hcl:(idx+1)*hcl] for idx in range(int(len(task["test"])/hcl))] 
+    # print(original_files[0])
 
-    check_func(original_dir="training_origin", add_dir="training_add")
-    check_func(original_dir="training_origin", add_dir="training_add")
-
-
-candidate_is_not_same()
+move_training_add_8()
 #%%
 def check_original_n_add_are_equal():
     def check_func(original_dir, add_dir):
