@@ -8,7 +8,28 @@ import pyperclip
 #todo same original arc
 #todo check candidate length
 
+#%%
+def move_training_add_8():
+    target_folder = "training_add"
+    files = sorted(glob.glob(target_folder+"/*.json"))
+    for file in files:
 
+        with open(file, "r") as f:
+            task = json.load(f)
+        print(len(task["test"]))
+        print(len(task["test"][:5]))
+        task["test"] = task["test"][:5]
+        # break
+        print("training_add_8"+file.removeprefix(target_folder))
+        with open("training_add_8"+file.removeprefix(target_folder), 'w') as f:
+            json.dump(task, f, separators=(',', ':'))
+    
+        
+    #     test_tasks = [task["test"][idx*hcl:(idx+1)*hcl] for idx in range(int(len(task["test"])/hcl))] 
+    # print(original_files[0])
+
+move_training_add_8()
+#%%
 def candidate_is_not_same():
 
     def check_func(target_folder, hcl):
@@ -54,7 +75,6 @@ def candidate_is_not_same():
                                 
                                 assert not np.all(candidate == candidate2), "file num: {}\n{} candidate{} and candidata{} is same\n{}\n\n{}".format(file_num, file, i, j,candidate, candidate2)
 
-    check_func(target_folder= "training_add", hcl=6)
     check_func(target_folder= "training_add_8", hcl=5)
 
 
@@ -62,36 +82,42 @@ def candidate_is_not_same():
 candidate_is_not_same()
 
 #%%
-def move_training_add_8():
-    target_folder = "training_add"
-    files = sorted(glob.glob(target_folder+"/*.json"))
-    for file in files:
 
-        with open(file, "r") as f:
-            task = json.load(f)
-        print(len(task["test"]))
-        print(len(task["test"][:5]))
-        task["test"] = task["test"][:5]
-        # break
-        print("training_add_8"+file.removeprefix(target_folder))
-        with open("training_add_8"+file.removeprefix(target_folder), 'w') as f:
-            json.dump(task, f, separators=(',', ':'))
-    
-        
-    #     test_tasks = [task["test"][idx*hcl:(idx+1)*hcl] for idx in range(int(len(task["test"])/hcl))] 
-    # print(original_files[0])
-
-move_training_add_8()
-#%%
+#!! trainingが伸びてしまっているのでoriginalのものと入れ替える
 def check_original_n_add_are_equal():
     def check_func(original_dir, add_dir):
+
         original_files = sorted(glob.glob(original_dir+"/*.json"))
-        add_files = sorted(glob.glob(original_dir+"/*.json"))
-        # for file_num, file in enumerate(files):
+        add_files = sorted(glob.glob(add_dir+"/*.json"))
+
+        for original, add in zip(original_files, add_files):
+            with open(original, "r") as f:
+                original_task = json.load(f)
+            with open(add, "r") as f:
+                add_task = json.load(f)
+
+            add_task["test"] =  add_task["test"][::5]
+            original_task["test"] =  original_task["test"][::5]
+            # if len(original_add_task) > 1:
+            #     print(len(original_add_task))
+            # add_task["test"] = []
+            # for i, add_task_test in enumerate(original_add_task):
+            #     if i ==0:
+            #         first_id = add_task_test["id"]
+            #         # print(first_id)
+            #     else:
+            #         add_task_test["id"] = first_id + i
+
+            #     add_task["test"].append(add_task_test)
+            #     print(len(add_task["test"]))
+
+            print(json.dumps(add_task))
+            print(json.dumps(original_task))
+            assert json.dumps(add_task) == json.dumps(original_task) 
+            # break
 
 
-    check_func(original_dir="training_origin", add_dir="training_add")
-    check_func(original_dir="training_origin", add_dir="training_add")
+    check_func(original_dir="training", add_dir="training_add_8")
 
 
-candidate_is_not_same()
+check_original_n_add_are_equal()
