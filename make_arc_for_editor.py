@@ -4,8 +4,8 @@ import glob
 import json
 import copy
 
-base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\training_origin"
-file_list = glob.glob(base_path +"\\*.json")
+base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\"
+file_list = glob.glob(base_path +"original_training\\*.json")
 
 base_max = novel_max = num_upper_max_size = 0
 for file in file_list:
@@ -54,7 +54,7 @@ for file in file_list:
     
 
     # print(json_load)
-    with open(base_path+"2\\"+path.stem+".json", 'w') as f:
+    with open(base_path+"training_expand\\"+path.stem+".json", 'w') as f:
         json.dump(json_load, f, separators=(',', ':'))
     
     # break

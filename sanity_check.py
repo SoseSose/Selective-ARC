@@ -89,15 +89,26 @@ def check_original_n_add_are_equal():
 
         original_files = sorted(glob.glob(original_dir+"/*.json"))
         add_files = sorted(glob.glob(add_dir+"/*.json"))
+        i = 0
 
         for original, add in zip(original_files, add_files):
+            i+=1
             with open(original, "r") as f:
-                original_task = json.load(f)
+                original_task = dict(sorted(json.load(f).items()))
             with open(add, "r") as f:
-                add_task = json.load(f)
+                add_task = dict(sorted(json.load(f).items()))
+
+            if len(original_task["test"]) > 9:
+                print(len(original_task["test"]))
+                print(len(add_task["test"]))
+
+            # print((original_task["test"]))
+            # print((add_task["test"]))
 
             add_task["test"] =  add_task["test"][::5]
-            original_task["test"] =  original_task["test"][::5]
+            original_task["test"] =  original_task["test"][::6]
+
+            # original_task["test"] =  original_task["test"][::5]
             # if len(original_add_task) > 1:
             #     print(len(original_add_task))
             # add_task["test"] = []
@@ -110,14 +121,14 @@ def check_original_n_add_are_equal():
 
             #     add_task["test"].append(add_task_test)
             #     print(len(add_task["test"]))
-
-            print(json.dumps(add_task))
-            print(json.dumps(original_task))
+            print(i,  add)
+            print(json.dumps(original_task["test"]))
+            print(json.dumps(add_task["test"]))
             assert json.dumps(add_task) == json.dumps(original_task) 
             # break
 
 
-    check_func(original_dir="training", add_dir="training_add_8")
+    check_func(original_dir="training_expand", add_dir="training_add_8")
 
 
 check_original_n_add_are_equal()
