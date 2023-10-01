@@ -28,19 +28,28 @@ for file in file_list:
         json_load["test"][i]["id"] = id_index
         id_index += 1
         json_load["test"][i] = dict(sorted(json_load["test"][i].items()))
+        # print(json_load["test"][i])
+        
         
         for j  in range(4):
-            one_train = copy.deepcopy(json_load["test"][4 * i + j])
-            try:
-                one_train["input"] = one_train["output"]
-            except KeyError:
-                print(path.stem)
-            one_train["id"] = id_index
-            id_index += 1
+            # one_train = copy.deepcopy(json_load["test"][4 * i + j])
+            # try:
+            #     one_train["input"] = one_train["output"]
+            # except KeyError:
+            #     print(path.stem)
+            # one_train["id"] = id_index
+            # id_index += 1
+            # one_train = dict(sorted(one_train.items()))
 
-            one_train = dict(sorted(one_train.items()))
+            one_train = copy.deepcopy(json_load["test"][4 * i])
+            one_train["input"] = one_train["output"]
+            one_train["id"] = id_index
+            # id_index += 1
+
             json_load["test"].append(one_train)
     
+    print(json_load["test"])
+    0/0
 
     json_load["name"] = path.stem
     json_load["description"] = ""
@@ -51,11 +60,8 @@ for file in file_list:
         
 
     json_load = dict(sorted(json_load.items(), reverse=True))
-    
-
-    # print(json_load)
-    with open(base_path+"training_expand\\"+path.stem+".json", 'w') as f:
-        json.dump(json_load, f, separators=(',', ':'))
+    # with open(base_path+"training_expand\\"+path.stem+".json", 'w') as f:
+    #     json.dump(json_load, f, separators=(',', ':'))
     
     # break
 
