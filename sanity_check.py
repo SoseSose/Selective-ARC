@@ -94,18 +94,23 @@ def correction_add_task_len_more_than_two():
             add_task = dict(sorted(json.load(f).items()))
         if len(add_task["test"]) > 9:
             print("a")
-        id_index = add_task["test"][0]["id"]
-        for i in range(len(add_task["test"])):
-            add_task["test"][i]["id"] = id_index
-            id_index += 1
+            for in_out in add_task["test"]:
+                print(in_out["id"])
+            id_index = add_task["test"][0]["id"]
+            for i in range(len(add_task["test"])):
+                add_task["test"][i]["id"] = id_index
+                id_index += 1
+            print(add_task["test"])
+            # for in_out in add_task["test"]:
+            #     print(in_out["id"])
 
-        with open(file, "w") as f:
-            json.dump(add_task, f, separators=(",", ":"))
+            with open(file, "w") as f:
+                json.dump(add_task, f, separators=(",", ":"))
 
 correction_add_task_len_more_than_two()
 #%%
-#!! trainingが伸びてしまっているのでoriginalのものと入れ替える
-def check_original_n_add_are_equal():
+import difflib
+def test_check_original_n_add_are_equal():
     def check_func(original_dir, add_dir):
 
         original_files = sorted(glob.glob(original_dir+"/*.json"))
@@ -119,39 +124,23 @@ def check_original_n_add_are_equal():
             with open(add, "r") as f:
                 add_task = dict(sorted(json.load(f).items()))
 
-            if len(original_task["test"]) > 9:
-                # print(len(original_task["test"]))
-                # print(len(add_task["test"]))
-
-                print((original_task["test"]))
-                print((add_task["test"]))
-
             original_task["test"] =  original_task["test"][::5]
             add_task["test"] =  add_task["test"][::5]
 
 
-            # original_task["test"] =  original_task["test"][::5]
-            # if len(original_add_task) > 1:
-            #     print(len(original_add_task))
-            # add_task["test"] = []
-            # for i, add_task_test in enumerate(original_add_task):
-            #     if i ==0:
-            #         first_id = add_task_test["id"]
-            #         # print(first_id)
-            #     else:
-            #         add_task_test["id"] = first_id + i
+            if json.dumps(add_task["test"]) != json.dumps(original_task["test"]):
+                # output_diff = difflib.Differ().compare(json.dumps(add_task), json.dumps(original_task))
+                # print('\n'.join(output_diff))
 
-            #     add_task["test"].append(add_task_test)
-            #     print(len(add_task["test"]))
-            if json.dumps(add_task) != json.dumps(original_task):
                 print(i,  add)
                 print(json.dumps(original_task["test"]))
                 print(json.dumps(add_task["test"]))
-            assert json.dumps(add_task) == json.dumps(original_task) 
-            # break
+
+                    
+            assert json.dumps(add_task["test"]) == json.dumps(original_task["test"]) 
 
 
     check_func(original_dir="training_expand", add_dir="training_add_8")
 
 
-check_original_n_add_are_equal()
+test_check_original_n_add_are_equal()
