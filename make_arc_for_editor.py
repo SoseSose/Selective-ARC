@@ -40,9 +40,7 @@ for file in file_list:
                 input=json_load["test"][i]["output"],
                 output=json_load["test"][i]["output"],
             )
-
             id_index += 1
-
             test_set.append(input_output)
 
     json_load["test"] = test_set

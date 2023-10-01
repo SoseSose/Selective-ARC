@@ -86,9 +86,24 @@ def candidate_is_not_same():
 
 
 candidate_is_not_same()
-
 #%%
+def correction_add_task_len_more_than_two():
+    add_files = sorted(glob.glob("training_add_8/*.json"))
+    for file in add_files:
+        with open(file, "r") as f:
+            add_task = dict(sorted(json.load(f).items()))
+        if len(add_task["test"]) > 9:
+            print("a")
+        id_index = add_task["test"][0]["id"]
+        for i in range(len(add_task["test"])):
+            add_task["test"][i]["id"] = id_index
+            id_index += 1
 
+        with open(file, "w") as f:
+            json.dump(add_task, f, separators=(",", ":"))
+
+correction_add_task_len_more_than_two()
+#%%
 #!! trainingが伸びてしまっているのでoriginalのものと入れ替える
 def check_original_n_add_are_equal():
     def check_func(original_dir, add_dir):
@@ -105,8 +120,8 @@ def check_original_n_add_are_equal():
                 add_task = dict(sorted(json.load(f).items()))
 
             if len(original_task["test"]) > 9:
-                print(len(original_task["test"]))
-                print(len(add_task["test"]))
+                # print(len(original_task["test"]))
+                # print(len(add_task["test"]))
 
                 print((original_task["test"]))
                 print((add_task["test"]))
