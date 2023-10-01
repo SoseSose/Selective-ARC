@@ -1,11 +1,12 @@
-#%%
+# %%
 from pathlib import Path
 import glob
 import json
 import copy
+import collections
 
 base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\"
-file_list = glob.glob(base_path +"original_training\\*.json")
+file_list = glob.glob(base_path + "original_training\\*.json")
 
 base_max = novel_max = num_upper_max_size = 0
 for file in file_list:
@@ -23,33 +24,33 @@ for file in file_list:
         id_index += 1
         json_load["train"][i] = dict(sorted(json_load["train"][i].items()))
 
+    test_set = []
     for i in range(len(json_load["test"])):
-
-        json_load["test"][i]["id"] = id_index
+        input_output = collections.OrderedDict(
+            id=id_index,
+            input=json_load["test"][i]["input"],
+            output=json_load["test"][i]["output"],
+        )
+        test_set.append(input_output)
         id_index += 1
-        json_load["test"][i] = dict(sorted(json_load["test"][i].items()))
-        # print(json_load["test"][i])
-        
-        
-        for j  in range(4):
-            # one_train = copy.deepcopy(json_load["test"][4 * i + j])
-            # try:
-            #     one_train["input"] = one_train["output"]
-            # except KeyError:
-            #     print(path.stem)
-            # one_train["id"] = id_index
-            # id_index += 1
-            # one_train = dict(sorted(one_train.items()))
 
-            one_train = copy.deepcopy(json_load["test"][4 * i])
-            one_train["input"] = one_train["output"]
-            one_train["id"] = id_index
-            # id_index += 1
+        for j in range(4):
+            input_output = collections.OrderedDict(
+                id=id_index,
+                input=json_load["test"][i]["output"],
+                output=json_load["test"][i]["output"],
+            )
 
-            json_load["test"].append(one_train)
-    
-    print(json_load["test"])
-    0/0
+            id_index += 1
+
+            test_set.append(input_output)
+
+    json_load["test"] = test_set
+
+    if len(json_load["test"]) > 9:
+        print(f)
+        for tst in json_load["test"]:
+            print(tst)
 
     json_load["name"] = path.stem
     json_load["description"] = ""
@@ -57,26 +58,25 @@ for file in file_list:
     # del json_load["train"]
     # json_load["train"] = json_load["test"]
 
-        
-
     json_load = dict(sorted(json_load.items(), reverse=True))
-    # with open(base_path+"training_expand\\"+path.stem+".json", 'w') as f:
-    #     json.dump(json_load, f, separators=(',', ':'))
-    
+    with open(base_path + "training_expand\\" + path.stem + ".json", "w") as f:
+        json.dump(json_load, f, separators=(",", ":"))
+
     # break
 
-#%%
+# %%
 
-#%%
+# %%
 import os
-add = glob.glob(base_path +"training_add\\*.json")
+
+add = glob.glob(base_path + "training_add\\*.json")
 print(len(add))
 for add_fn in add:
     add_fn = Path(add_fn)
-    add_fn = add_fn.stem+".json"
-    print(base_path+"training_origin\\"+add_fn)
-    print(os.path.exists(base_path+"training_origin\\"+add_fn))
-    os.remove(base_path+"training_origin\\"+add_fn)
+    add_fn = add_fn.stem + ".json"
+    print(base_path + "training_origin\\" + add_fn)
+    print(os.path.exists(base_path + "training_origin\\" + add_fn))
+    os.remove(base_path + "training_origin\\" + add_fn)
 
-origin = glob.glob(base_path +"training_origin\\*.json")
+origin = glob.glob(base_path + "training_origin\\*.json")
 print(len(origin))

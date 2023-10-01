@@ -16,11 +16,17 @@ def move_training_add_8():
 
         with open(file, "r") as f:
             task = json.load(f)
-        print(len(task["test"]))
-        print(len(task["test"][:5]))
-        task["test"] = task["test"][:5]
-        # break
-        print("training_add_8"+file.removeprefix(target_folder))
+
+        # print(len(task["test"]))
+        # print(len(task["test"][:5]))
+
+        original_task_len = int(len(task["test"])/5)
+        if original_task_len != 1:
+            print(original_task_len)
+        for i in range(original_task_len):
+            task["test"].pop((i+1)*5-i)
+
+        # print("training_add_8"+file.removeprefix(target_folder))
         with open("training_add_8"+file.removeprefix(target_folder), 'w') as f:
             json.dump(task, f, separators=(',', ':'))
     
