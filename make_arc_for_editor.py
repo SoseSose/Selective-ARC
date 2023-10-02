@@ -6,7 +6,7 @@ import copy
 import collections
 
 base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\"
-file_list = glob.glob(base_path + "original_training\\*.json")
+file_list = glob.glob(base_path + "original_evaluation\\*.json")
 
 base_max = novel_max = num_upper_max_size = 0
 for file in file_list:
@@ -57,7 +57,7 @@ for file in file_list:
     # json_load["train"] = json_load["test"]
 
     json_load = dict(sorted(json_load.items(), reverse=True))
-    with open(base_path + "training_expand\\" + path.stem + ".json", "w") as f:
+    with open(base_path + "evaluation_expand\\" + path.stem + ".json", "w") as f:
         json.dump(json_load, f, separators=(",", ":"))
 
     # break
