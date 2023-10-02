@@ -5,17 +5,15 @@ import json
 import copy
 import collections
 
-base_path = "C:\\Users\\taeya\\Documents\\Optional ARC\\"
-file_list = glob.glob(base_path + "original_evaluation\\*.json")
+base_path =Path(Path.cwd()) 
+object_path = "evaluation_original"
+file_list = glob.glob(str(base_path / object_path / "*.json"))
 
-base_max = novel_max = num_upper_max_size = 0
 for file in file_list:
     path = Path(file)
     with open(path, "r") as f:
         json_load = json.load(f)
 
-    base_ind = novel_ind = 0
-    images = {}
     id_index = 0
     json_load = dict(sorted(json_load.items(), reverse=True))
 
@@ -26,38 +24,50 @@ for file in file_list:
 
     test_set = []
     for i in range(len(json_load["test"])):
-        input_output = collections.OrderedDict(
+        # input_output = collections.OrderedDict(
+        #     id=id_index,
+        #     input=json_load["test"][i]["input"],
+        #     output=json_load["test"][i]["output"],
+        # )
+        input_output = dict(collections.OrderedDict(
             id=id_index,
             input=json_load["test"][i]["input"],
             output=json_load["test"][i]["output"],
-        )
+        ))
         test_set.append(input_output)
         id_index += 1
 
         for j in range(4):
-            input_output = collections.OrderedDict(
+            # input_output = collections.OrderedDict(
+            #     id=id_index,
+            #     input=json_load["test"][i]["output"],
+            #     output=json_load["test"][i]["output"],
+            # )
+            input_output = dict(collections.OrderedDict(
                 id=id_index,
                 input=json_load["test"][i]["output"],
                 output=json_load["test"][i]["output"],
-            )
+            ))
             id_index += 1
             test_set.append(input_output)
 
     json_load["test"] = test_set
 
-    if len(json_load["test"]) > 9:
-        print(f)
-        for tst in json_load["test"]:
-            print(tst)
+    # if len(json_load["test"]) > 9:
+    #     print(f)
+    #     for tst in json_load["test"]:
+    #         print(tst)
 
     json_load["name"] = path.stem
     json_load["description"] = ""
 
-    # del json_load["train"]
-    # json_load["train"] = json_load["test"]
 
     json_load = dict(sorted(json_load.items(), reverse=True))
-    with open(base_path + "evaluation_expand\\" + path.stem + ".json", "w") as f:
+    # print(json_load["train"])
+    # print(json_load["test"])
+    print(json.dumps(json_load))
+    # break
+    with open(base_path / "evaluation_expand" / path.name, "w") as f:
         json.dump(json_load, f, separators=(",", ":"))
 
     # break
