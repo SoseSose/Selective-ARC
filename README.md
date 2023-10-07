@@ -21,7 +21,7 @@ Inside the test of the original ARC data, following the original input and outpu
 Inside the test of the original ARC data, following the original input and output, there are four sets of input and output. These 2x4 grids serve as false answer options.
 
 * train_add_10   
-Accidentally created with ten false answer options. There's potential for future use, but currently, it's not in use.
+Mistakenly created with ten false answer options. There's potential for future use, but currently, it's not in use.
 
 The evaluation will be structured similarly.
 
