@@ -106,14 +106,16 @@ candidate_is_not_same()
 
 # move_training_add_8()
 
-# #%%
+#%%
 # def correction_add_task_len_more_than_two():
-#     add_files = sorted(glob.glob("training_add_8/*.json"))
+#     add_files = sorted(glob.glob("training_add/*.json"))
 #     for file in add_files:
 #         with open(file, "r") as f:
 #             add_task = dict(sorted(json.load(f).items()))
-#         if len(add_task["test"]) > 9:
-#             print("a")
+#         if len(add_task["test"]) > 11:
+            
+#             print(len(add_task["test"]))
+#             print(file)
 #             for in_out in add_task["test"]:
 #                 print(in_out["id"])
 #             id_index = add_task["test"][0]["id"]

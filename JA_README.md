@@ -4,7 +4,7 @@
 ただし、まだ作業中です!!
 まだ作成されているのはtrainデータのみです。
 11月末までにはevalationデータの回答候補も作成することを目標にしています。
-結構、大変な作業なので、手伝っていただける方は大歓迎ですが、
+大変な作業なので、手伝っていただける方は大歓迎ですが、
 同じタスクをしてしまうと無駄になってしまうので、
 もし手伝っていただける方がいれば、ご連絡ください。
 
@@ -18,27 +18,36 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 このアイデアは主にraven's progressive matricesのようなものを機械学習に導入した[Procedurally Generated Matrices(PGM)](https://github.com/google-deepmind/abstract-reasoning-matrices)や[RAVEN](https://github.com/WellyZhang/RAVEN)を基にしています。
 私はDeep LearningでARCを解くことを目的としており、PGMやRAVENはDeep Learningでよく研究されているようです。（参考論文）[Deep Learning Methods for Abstract Visual Reasoning: A Survey on Raven's Progressive Matrices](https://arxiv.org/abs/2201.12382)
 
-# ディレクトリ説明
-* train_original    
-オリジナルのARCデータ
-
-* train_expand   
-オリジナルのARCデータのtest内でオリジナルのinput,outputの後にinput,outputセットが4つ続いており,この2x4つのグリッドは「test output」のコピーとなります。後のtrain_addを作るときにARC Editerで編集をするために作成されています。
-
-* train_add   
-オリジナルのARCデータのtest内でオリジナルのinput,outputの後にinput,outputセットが4つ続いており,この2x4つのグリッドは偽の回答候補となります。
-
-* train_add_10   
-間違えて偽の回答候補を10個作成してしまったものです。将来的に使用する可能性はありますが現状は使用しません。
-
-evaluationも同様の構成にする予定です。
-
 # 例
-以下は/training_add/ff28f65a.jsonでの例です。
+例を/training/239be575.jsonのtest pairで示します。
 
-![image](add_image_desc.png)
+* pair1~6 trainのinputとoutputのpairです。元のARCデータセットと同様です。
+![image](example_image/pair1.png)
+![image](example_image/pair2.png)
+![image](example_image/pair3.png)
+![image](example_image/pair4.png)
+![image](example_image/pair5.png)
+![image](example_image/pair6.png)
 
-できれば良い説明をしたいですが、ダウンロードしたデータを[Arc Editer](https://arc-editor.lab42.global/editor)で見てもらう方が良いでしょう。
+* pair7 初めのtest pair。このoutputがtest inputに対する正しいoutputになります。 
+![image](example_image/pair7.png)
+
+* pair8~11 初めのtest pairの後の4つのpairに格納されるのは初めのinputに対する誤ったoutputです。これらは正しいoutputと似ていますが、一部違った部分があります。誤ったoutputは常に正しいpairの後に2x4=8つ格納されます。
+![image](example_image/pair8.png)
+![image](example_image/pair9.png)
+![image](example_image/pair10.png)
+![image](example_image/pair11.png)
+
+* pair13 ２つ目の正しいtest pair。このようにtest pairが２つ以上ある場合は、一つ前の誤ったoutputセットの後に続いて格納されています。
+![image](example_image/pair12.png)
+
+
+* pair14~18 ２つ目のtest pairの誤ったoutput。誤ったoutputは常に正しいpairの後に2x4=8つ格納されます。
+![image](example_image/pair13.png)
+![image](example_image/pair14.png)
+![image](example_image/pair15.png)
+![image](example_image/pair16.png)
+![image](example_image/pair17.png)
 
 # 参考
 
