@@ -18,11 +18,23 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 このアイデアは主にraven's progressive matricesのようなものを機械学習に導入した[Procedurally Generated Matrices(PGM)](https://github.com/google-deepmind/abstract-reasoning-matrices)や[RAVEN](https://github.com/WellyZhang/RAVEN)を基にしています。
 私はDeep LearningでARCを解くことを目的としており、PGMやRAVENはDeep Learningでよく研究されているようです。（参考論文）[Deep Learning Methods for Abstract Visual Reasoning: A Survey on Raven's Progressive Matrices](https://arxiv.org/abs/2201.12382)
 
+# ディレクトリ説明
+* train_original    
+オリジナルのARCデータ
 
-# 形式
+* train_expand   
+オリジナルのARCデータのtest内でオリジナルのinput,outputの後にinput,outputセットが4つ続いており,この2x4つのグリッドは「test output」のコピーとなります。後のtrain_addを作るときにARC Editerで編集をするために作成されています。
 
-元のデータセットと同様のjsonですが、testデータのorignalのinput,outputの後にinput,outputセットが4つ、続いており、この4つが偽の回答候補となります。
-以下はff28f65a.jsonでの例です。
+* train_add   
+オリジナルのARCデータのtest内でオリジナルのinput,outputの後にinput,outputセットが4つ続いており,この2x4つのグリッドは偽の回答候補となります。
+
+* train_add_10   
+間違えて偽の回答候補を10個作成してしまったものです。将来的に使用する可能性はありますが現状は使用しません。
+
+evaluationも同様の構成にする予定です。
+
+# 例
+以下は/training_add/ff28f65a.jsonでの例です。
 
 ![image](add_image_desc.png)
 
@@ -35,4 +47,4 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 [3] https://github.com/WellyZhang/RAVEN  
 [4] https://arxiv.org/abs/2201.12382
 
-※en_read_me.mdでのこの文はchat GPTで翻訳されたものです。
+※README.mdはJA_README.mdから機械翻訳されたものです。

@@ -1,28 +1,36 @@
-# Multiple Choice ARC (!!Under Construction!!)
+# Optional ARC (!!Work in Progress!!)
 
-I'm in the process of creating a dataset based on the [Abstraction and Reasoning Challenge (ARC)](https://github.com/fchollet/ARC) formatted as multiple choice. 
-!!Please be informed it's still under construction!!
-As of now, only the train data has been produced. 
-I'm setting a goal to generate answer candidates for the evaluation data by the end of November. 
-Creating this is quite challenging, so any help would be greatly appreciated. However, to avoid redundancy in tasks, if you are willing to assist, please get in touch first.
+I'm creating a dataset based on the [Abstraction and Reasoning Challenge (ARC)](https://github.com/fchollet/ARC) in a multiple-choice format. !! However, it's still a work in progress!! Currently, only the training data has been created. I aim to have answer options for the evaluation data by the end of November. It's quite a challenging task, so any assistance is welcome. However, to avoid redundancy, please contact me if you're interested in helping.
 
-In my perspective, ARC can be segmented into the following three steps:
+In my view, ARC can be divided into the following three steps:
 
-1. Recognizing objects within the grid (e.g., there's a red 3x2 block, a blue 10x1 dividing line, yellow noise, etc.).
-2. Inferring the relationships of the recognized attributes.
-3. Based on these relationships, produce the answer grid.
+1. Recognizing objects within the grid (e.g., there's a 3x2 red block, a 10x1 blue line, yellow noise, etc.).
+2. Deriving the relationships of the recognized attributes.
+3. Generating the answer grid based on these relationships.
 
-In ARC, the final response was in the form of a grid. Given that creating the grid in step 3 is challenging, I felt that the primary goal of human-like abstract reasoning could be gauged in steps 1 and 2. This inspired me to develop this dataset. 
-This concept primarily draws from introducing ideas similar to raven's progressive matrices into machine learning via [Procedurally Generated Matrices (PGM)](https://github.com/google-deepmind/abstract-reasoning-matrices) and [RAVEN](https://github.com/WellyZhang/RAVEN). I am keen on solving ARC using Deep Learning, and it seems that PGM and RAVEN are being extensively explored in this field. (Refer to the paper: [Deep Learning Methods for Abstract Visual Reasoning: A Survey on Raven's Progressive Matrices](https://arxiv.org/abs/2201.12382)).
+While the final answer in ARC was about generating the grid, step 3 is quite difficult. I felt that human-like abstract reasoning can be measured in steps 1 and 2, which is why I created this dataset. This idea is primarily based on introducing machine learning to tasks similar to raven's progressive matrices, like the [Procedurally Generated Matrices (PGM)](https://github.com/google-deepmind/abstract-reasoning-matrices) and [RAVEN](https://github.com/WellyZhang/RAVEN). My goal is to solve ARC using Deep Learning, and PGM and RAVEN seem to be well-researched in the Deep Learning community. (Reference paper: [Deep Learning Methods for Abstract Visual Reasoning: A Survey on Raven's Progressive Matrices](https://arxiv.org/abs/2201.12382))
 
-# Format
+# Directory Description
+* train_original    
+The original ARC data.
 
-The dataset follows a similar json structure as the original. However, for test data, after the original input and output, four sets of input-output pairs are added. These four are intended as false answer candidates. 
-An example from ff28f65a.json is provided below:
+* train_expand   
+Inside the test of the original ARC data, following the original input and output, there are four sets of input and output. These 2x4 grids are copies of the "test output." This was created to be edited with the ARC Editor when creating train_add.
+
+* train_add   
+Inside the test of the original ARC data, following the original input and output, there are four sets of input and output. These 2x4 grids serve as false answer options.
+
+* train_add_10   
+Accidentally created with ten false answer options. There's potential for future use, but currently, it's not in use.
+
+The evaluation will be structured similarly.
+
+# Example
+Below is an example from /training_add/ff28f65a.json.
 
 ![image](add_image_desc.png)
 
-While a detailed explanation is desired, it might be more insightful for users to view the downloaded data using the [Arc Editor](https://arc-editor.lab42.global/editor).
+While I'd like to provide a detailed explanation, it might be better for you to view the downloaded data in the [Arc Editor](https://arc-editor.lab42.global/editor).
 
 # References
 
@@ -31,5 +39,4 @@ While a detailed explanation is desired, it might be more insightful for users t
 [3] https://github.com/WellyZhang/RAVEN  
 [4] https://arxiv.org/abs/2201.12382
 
-※ This text was translated.
-
+*Note: This README.md has been machine-translated from JA_README.md.*
