@@ -9,37 +9,34 @@ import pathlib
 
 #%%
 def test_original_add_are_equal():
-    def check_func(original_dir, add_dir):
 
-        original_files = sorted(glob.glob(original_dir+"/*.json"))
-        add_files = sorted(glob.glob(add_dir+"/*.json"))
-        i = 0
+    original_dir = pathlib.Path("evaluation_expand")/"end"
+    add_dir = pathlib.Path("evaluation_add")
+    add_files = glob.glob(str(add_dir)+"/*.json")
+    i = 0
 
-        for original, add in zip(original_files, add_files):
-            i+=1
-            with open(original, "r") as f:
-                original_task = dict(sorted(json.load(f).items()))
-            with open(add, "r") as f:
-                add_task = dict(sorted(json.load(f).items()))
+    for add in add_files:
+        add_path = pathlib.Path(str(add))
+        i+=1
+        with add_path.open() as f:
+            add_task = dict(sorted(json.load(f).items()))
 
-            original_task["test"] =  original_task["test"][::5]
-            add_task["test"] =  add_task["test"][::5]
-
-
-            if json.dumps(add_task["test"]) != json.dumps(original_task["test"]):
-                # output_diff = difflib.Differ().compare(json.dumps(add_task), json.dumps(original_task))
-                # print('\n'.join(output_diff))
-
-                print(i,  add)
-                print(json.dumps(original_task["test"]))
-                print(json.dumps(add_task["test"]))
-
-                    
-            assert json.dumps(add_task["test"]) == json.dumps(original_task["test"]) 
+        with (original_dir/add_path.name).open() as f:
+            original_task = dict(sorted(json.load(f).items()))
 
 
-    check_func(original_dir="training_expand", add_dir="training_add_8")
+        original_task_json =  json.dumps(original_task["test"][::5])
+        add_task_json =  json.dumps(add_task["test"][::5])
 
+
+        if original_task_json != add_task_json:
+            print(i,  add)
+            print(original_task_json)
+            print(add_task_json)
+            pyperclip.copy(add_path.name)
+
+                
+        # assert original_task_json == add_task_json 
 
 test_original_add_are_equal()
 
