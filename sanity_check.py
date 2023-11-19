@@ -7,17 +7,17 @@ import numpy as np
 import pyperclip
 import pathlib
 
+
+LEN_FALSE_OUTPUT = 5
 #%%
 def test_original_add_are_equal():
 
     original_dir = pathlib.Path("evaluation_expand")/"end"
     add_dir = pathlib.Path("evaluation_add")
     add_files = glob.glob(str(add_dir)+"/*.json")
-    i = 0
 
-    for add in add_files:
+    for file_idx, add in enumerate(add_files):
         add_path = pathlib.Path(str(add))
-        i+=1
         with add_path.open() as f:
             add_task = dict(sorted(json.load(f).items()))
 
@@ -25,12 +25,12 @@ def test_original_add_are_equal():
             original_task = dict(sorted(json.load(f).items()))
 
 
-        original_task_json =  json.dumps(original_task["test"][::5])
-        add_task_json =  json.dumps(add_task["test"][::5])
+        original_task_json =  json.dumps(original_task["test"][::LEN_FALSE_OUTPUT])
+        add_task_json =  json.dumps(add_task["test"][::LEN_FALSE_OUTPUT])
 
 
         if original_task_json != add_task_json:
-            print(i,  add)
+            print(file_idx,  add)
             print(original_task_json)
             print(add_task_json)
             pyperclip.copy(add_path.name)
@@ -44,6 +44,7 @@ test_original_add_are_equal()
 def candidate_is_not_same():
 
     target_folder = pathlib.Path("training_add")
+    target_folder = pathlib.Path("evaluation_add")
     hcl = 5
     files = sorted(glob.glob(str(target_folder/"*.json")))
     for file_num, file in enumerate(files):
