@@ -12,6 +12,15 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 このアイデアは主にraven's progressive matricesのようなものを機械学習に導入した[Procedurally Generated Matrices(PGM)](https://github.com/google-deepmind/abstract-reasoning-matrices)や[RAVEN](https://github.com/WellyZhang/RAVEN)を基にしています。
 私はDeep LearningでARCを解くことを目的としており、PGMやRAVENはDeep Learningでよく研究されているようです。（参考論文）[Deep Learning Methods for Abstract Visual Reasoning: A Survey on Raven's Progressive Matrices](https://arxiv.org/abs/2201.12382)
 
+# ディレクトリ構成
+
+original_arc
+data_for_editing
+evaluation
+training
+pictures
+
+
 # 例
 例を/training/239be575.jsonのtest pairで示します。
 
