@@ -1,6 +1,6 @@
 # Optional ARC (!!Work in Progress!!)
 
-I am working on creating a dataset in a multiple-choice format based on the [Abstraction and Reasoning Challenge (ARC)](https://github.com/fchollet/ARC). !! However, it's still a work in progress!! So far, only the training data has been created. I aim to have answer options for the evaluation data by the end of November. It's quite an intensive task, so any assistance is warmly welcomed. However, to avoid redundancy, if you are willing to help, please contact me.
+I am working on creating a dataset in a multiple-choice format based on the [Abstraction and Reasoning Challenge (ARC)](https://github.com/fchollet/ARC) !! However, it's still a work in progress!! So far, only the training data has been created. I aim to have answer options for the evaluation data by the end of November. It's quite an intensive task, so any assistance is warmly welcomed. However, to avoid redundancy, if you are willing to help, please contact me.
 
 In my perspective, ARC can be divided into the following three steps:
 

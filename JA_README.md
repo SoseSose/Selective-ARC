@@ -1,12 +1,6 @@
-# 選択式のARC(!!作業中です!!)
+# 選択式のARC
 
-[Abstraction and Reasoning Challenge(ARC)](https://github.com/fchollet/ARC)を選択式にしたデータセットを作成しています。!!
-ただし、まだ作業中です!!
-まだ作成されているのはtrainデータのみです。
-11月末までにはevalationデータの回答候補も作成することを目標にしています。
-大変な作業なので、手伝っていただける方は大歓迎ですが、
-同じタスクをしてしまうと無駄になってしまうので、
-もし手伝っていただける方がいれば、ご連絡ください。
+[Abstraction and Reasoning Challenge(ARC)](https://github.com/fchollet/ARC)を選択式にしたデータセットです。
 
 私の考えではARCは次の3つのステップに分かれています。
 
@@ -40,7 +34,6 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 
 * pair13 ２つ目の正しいtest pair。このようにtest pairが２つ以上ある場合は、一つ前の誤ったoutputセットの後に続いて格納されています。
 ![image](example_image/pair12.png)
-
 
 * pair14~18 ２つ目のtest pairの誤ったoutput。誤ったoutputは常に正しいpairの後に2x4=8つ格納されます。
 ![image](example_image/pair13.png)
