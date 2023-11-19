@@ -74,5 +74,5 @@ def candidate_is_not_same(target_folder_name):
                             
                             assert not np.all(candidate == candidate2), "file num: {}\n{} candidate{} and candidata{} is same\n{}\n\n{}".format(file_num, file, i, j,candidate, candidate2)
 
-candidate_is_not_same("training_add")
-candidate_is_not_same("evaluation_add")
+candidate_is_not_same("training")
+candidate_is_not_same("evaluation")
