@@ -1,4 +1,4 @@
-# 選択式のARC
+# Selective ARC
 
 [Abstraction and Reasoning Challenge(ARC)](https://github.com/fchollet/ARC)を選択式にしたデータセットです。
 
@@ -14,11 +14,36 @@ ARCでは最終の回答はグリッドの生成でしたが、3の生成は難�
 
 # ディレクトリ構成
 
-original_arc
-data_for_editing
-evaluation
-training
-pictures
+Selective ARCの実際のデータは☆にあります。
+
+**original_arc**  
+オリジナルのARCからコピーしたdataと同じです。
+「data_for_editing」や「training」「evaluation」はidやname,desctiptionなどが
+追加されていますが、ここでは追加されていません。
+
+**data_for_editing**  
+make_data_for_arc_editor.pyによってoriginal_arcからデータ編集作業をするために
+タスクの延長とidやname,desctiptionなどが追加されたデータです。
+タスクの延長とidやname,desctiptionの追加は[ARC Editor](https://arc-editor.lab42.global/editor)で編集するために必要でした。
+
+**evaluation(☆)**  
+延長されたevaluationタスク。データがどのように格納されているかは次の段落の例で説明されています。
+ 
+**training(☆)**  
+延長されたtrainingタスク。データがどのように格納されているかは次の段落の例で説明されています。
+
+**pictures**  
+-説明のための画像が入っています。
+
+**make_data_for_arc_editor.py**  
+[ARC Editor](https://arc-editor.lab42.global/editor)で編集をするためにoriginal_arcからdata_for_editingを生成するpythonコードです。
+
+**revision_memo.md**  
+編集中に誤りや不明瞭なtaskを見つけたので、どこがおかしいかをメモしています。
+明確に誤っていると思ったものはevaluationでは編集しています。
+
+**sanity_check.py**  
+作成したtrainingとevaluationの健全性を確認します。元のdata_for_editingからコピーした部分を間違えて編集していないかと違いのない誤ったoutputを作成していないかをチェックします。
 
 
 # 例
