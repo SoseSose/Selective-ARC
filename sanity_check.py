@@ -1,5 +1,4 @@
 #%%
-#b7cb93ac.json 上下左右入れ替えても問題がなさそう
 import json
 import glob
 import os
@@ -9,43 +8,54 @@ from pathlib import Path
 
 
 LEN_FALSE_OUTPUT = 5
+LEN_TASKS = 400
+
 #%%
-def test_original_add_are_equal():
+def test_original_add_are_equal(original_dir, training_or_evaluation):
 
-    original_dir = Path("evaluation_expand")/"end"
-    add_dir = Path("evaluation_add")
-    add_files = glob.glob(str(add_dir)+"/*.json")
+    original_dir = Path(original_dir)/training_or_evaluation
+    add_dir = Path(training_or_evaluation)
+    original_files = original_dir.glob("*.json")
 
-    for file_idx, add in enumerate(add_files):
-        add_path = Path(str(add))
-        with add_path.open() as f:
+
+    for file_idx, original_file in enumerate(original_files):
+        with original_file.open() as f:
             add_task = dict(sorted(json.load(f).items()))
 
-        with (original_dir/add_path.name).open() as f:
+        with (add_dir/original_file.name).open() as f:
             original_task = dict(sorted(json.load(f).items()))
+        
+        not_expanded_original_task = original_task["train"] + original_task["test"][::LEN_FALSE_OUTPUT]
+        not_expanded_add_task = add_task["train"] + add_task["test"][::LEN_FALSE_OUTPUT]
 
+        for original, add in zip(not_expanded_original_task, not_expanded_add_task):
+            original_task_json =  json.dumps(original)
+            add_task_json =  json.dumps(add)
 
-        original_task_json =  json.dumps(original_task["test"][::LEN_FALSE_OUTPUT])
-        add_task_json =  json.dumps(add_task["test"][::LEN_FALSE_OUTPUT])
+            if original_task_json != add_task_json:
+                print(training_or_evaluation, file_idx,  original_file.name)
+                print(original_task_json)
+                print(add_task_json)
+                pyperclip.copy(original_file.name)
 
+            # assert original_task_json == add_task_json 
 
-        if original_task_json != add_task_json:
-            print(file_idx,  add)
-            print(original_task_json)
-            print(add_task_json)
-            pyperclip.copy(add_path.name)
+    #test num of files
+    assert len(list(original_dir.glob("*.json"))) == LEN_TASKS
 
                 
-        # assert original_task_json == add_task_json 
 
-test_original_add_are_equal()
+test_original_add_are_equal("data_for_editing", "training")
+test_original_add_are_equal("data_for_editing", "evaluation")
 
 #%%
 def candidate_is_not_same(target_folder_name):
 
     target_folder = Path(target_folder_name)
     hcl = 5
-    files = sorted(glob.glob(str(target_folder/"*.json")))
+    files = sorted(glob.glob(str()))
+    files = target_folder.glob("*.json")
+
     for file_num, file in enumerate(files):
         file_path = Path(file)
 
@@ -73,6 +83,8 @@ def candidate_is_not_same(target_folder_name):
                                 pyperclip.copy(file_path.name)
                             
                             assert not np.all(candidate == candidate2), "file num: {}\n{} candidate{} and candidata{} is same\n{}\n\n{}".format(file_num, file, i, j,candidate, candidate2)
+    
+    assert len(list(target_folder.glob("*.json"))) == LEN_TASKS
 
 candidate_is_not_same("training")
 candidate_is_not_same("evaluation")
