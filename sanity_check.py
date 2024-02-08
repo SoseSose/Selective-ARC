@@ -88,3 +88,31 @@ def candidate_is_not_same(target_folder_name):
 
 candidate_is_not_same("training")
 candidate_is_not_same("evaluation")
+#%%
+def value_is_not_strange(target_folder_name):
+    for file in Path(target_folder_name).glob("*.json"):
+        with open(file, "r") as f:
+            task = json.load(f)
+        tasks = task["train"] + task["test"]
+        flag = False
+        for task in tasks:
+            for row in task["input"]:
+                for value in row:
+                    if value not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+                        flag = True
+                        print(file)
+
+            for row in task["output"]:
+                for value in row:
+                    if value not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+                        flag = True
+                        print(file)
+        
+        if flag:
+            print(tasks)
+value_is_not_strange("training")
+value_is_not_strange("evaluation")
+
+
+
+
